@@ -24,6 +24,8 @@ public class Controller {
     @FXML
     private Label time;
     @FXML
+    private Label currentTime;
+    @FXML
     private Button playButton;
 
     private boolean playing = false;
@@ -36,6 +38,8 @@ public class Controller {
 
     @FXML
     protected void onPlayButtonClick() {
+        System.out.println(mediaPlayer.getCurrentTime());
+        setCurrentTime();
         if (playing) {
             playing = false;
             setPlayButton();
@@ -68,12 +72,20 @@ public class Controller {
         title.setFont(new Font("VCR OSD Mono",36));
         artist.setFont(new Font("VCR OSD Mono", 22));
         time.setFont(new Font("VCR OSD Mono", 12)); // Font da rivedere
+        currentTime.setFont(new Font("VCR OSD Mono", 12));
     }
 
     public void setTime() {
         // Da rivedere quando verrà implementata la scelta della canzone
         TimeFormatter timeFormatter = new TimeFormatter(audioFile.getDuration());
         time.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds());
+    }
+
+    public void setCurrentTime() {
+        mediaPlayer.currentTimeProperty().addListener(ov -> {
+            TimeFormatter timeFormatter = new TimeFormatter(mediaPlayer.getCurrentTime());
+            currentTime.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds() + " / ");
+        });
     }
 
     public void setTitle(String text) {
