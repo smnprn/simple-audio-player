@@ -71,7 +71,7 @@ public class Controller {
     }
 
     public void setTime() {
-        // Da rivedere quando verrà implementato la scelta della canzone
+        // Da rivedere quando verrà implementata la scelta della canzone
         TimeFormatter timeFormatter = new TimeFormatter(audioFile.getDuration());
         time.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds());
     }
