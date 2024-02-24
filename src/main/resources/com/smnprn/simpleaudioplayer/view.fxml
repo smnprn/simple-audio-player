@@ -11,9 +11,10 @@
 
     <Label fx:id="title" textFill="WHITE" />
     <Label fx:id="artist" textFill="WHITE" />
+   <ProgressBar prefWidth="200.0" progress="0.5" />
     <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
-        <Label fx:id="currentTime" textFill="WHITE"/>
-        <Label fx:id="time" textFill="WHITE"/>
+        <Label fx:id="currentTime" textFill="WHITE" />
+        <Label fx:id="time" textFill="WHITE" />
     </HBox>
     <Button fx:id="playButton" onAction="#onPlayButtonClick" />
 </VBox>

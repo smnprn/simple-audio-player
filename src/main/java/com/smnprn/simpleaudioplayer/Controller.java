@@ -38,7 +38,6 @@ public class Controller {
 
     @FXML
     protected void onPlayButtonClick() {
-        System.out.println(mediaPlayer.getCurrentTime());
         setCurrentTime();
         if (playing) {
             playing = false;
@@ -84,7 +83,12 @@ public class Controller {
     public void setCurrentTime() {
         mediaPlayer.currentTimeProperty().addListener(ov -> {
             TimeFormatter timeFormatter = new TimeFormatter(mediaPlayer.getCurrentTime());
-            currentTime.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds() + " / ");
+
+            if (timeFormatter.calcSeconds() < 10) {
+                currentTime.setText(timeFormatter.calcMinutes() + ":" + "0" + timeFormatter.calcSeconds() + " / ");
+            } else {
+                currentTime.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds() + " / ");
+            }
         });
     }
 
