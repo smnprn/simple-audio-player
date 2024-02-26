@@ -20,6 +20,8 @@ public class Controller {
     private final MediaPlayer mediaPlayer = new MediaPlayer(audioFile);
 
     @FXML
+    private ImageView albumCover;
+    @FXML
     private Label title;
     @FXML
     private Label artist;
@@ -42,6 +44,7 @@ public class Controller {
 
     @FXML
     protected void onPlayButtonClick() {
+        setAlbumCover();
         setCurrentTime();
         setProgressBar();
         if (playing) {
@@ -110,6 +113,11 @@ public class Controller {
 
     public void setArtist(String text) {
         artist.setText(text);
+    }
+
+    public void setAlbumCover() {
+        Image img = new Image(getClass().getResourceAsStream("test-album-cover.jpg"));
+        albumCover.setImage(img);
     }
 
     public void resetTexts() {
