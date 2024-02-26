@@ -10,3 +10,23 @@
     -fx-background-insets: 1 1 2 1;
     -fx-padding: 0.20em;
 }
+
+#albumCover {
+    -fx-translate-y: -20px;
+}
+
+#title {
+    -fx-translate-y: 10px;
+}
+
+#artist {
+    -fx-translate-y: -5px;
+}
+
+#timeBox {
+    -fx-translate-y: -18px;
+}
+
+#playButton {
+    -fx-translate-y: -18px;
+}

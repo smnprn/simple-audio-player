@@ -78,8 +78,8 @@ public class Controller {
     public void setFonts() {
         title.setFont(Font.font("Helvetica Neue", FontWeight.BOLD, 34));
         artist.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,22));
-        time.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,14)); // Font da rivedere
-        currentTime.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,14));
+        time.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,12)); // Font da rivedere
+        currentTime.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,12));
     }
 
     public void setTime() {
@@ -93,9 +93,9 @@ public class Controller {
             TimeFormatter timeFormatter = new TimeFormatter(mediaPlayer.getCurrentTime());
 
             if (timeFormatter.calcSeconds() < 10) {
-                currentTime.setText(timeFormatter.calcMinutes() + ":" + "0" + timeFormatter.calcSeconds() + " / ");
+                currentTime.setText(timeFormatter.calcMinutes() + ":" + "0" + timeFormatter.calcSeconds());
             } else {
-                currentTime.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds() + " / ");
+                currentTime.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds());
             }
         });
     }
