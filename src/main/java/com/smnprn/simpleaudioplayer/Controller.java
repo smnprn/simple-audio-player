@@ -75,8 +75,8 @@ public class Controller {
     public void setFonts() {
         title.setFont(Font.font("Helvetica Neue", FontWeight.BOLD, 34));
         artist.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,22));
-        time.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,13)); // Font da rivedere
-        currentTime.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,13));
+        time.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,14)); // Font da rivedere
+        currentTime.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,14));
     }
 
     public void setTime() {
