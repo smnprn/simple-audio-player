@@ -10,15 +10,19 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 
 public class Controller {
 
-    private String audioPath = "/home/smnprn/IdeaProjects/simple-audio-player/src/main/java/com/smnprn/simpleaudioplayer/assets/oip.mp3";
-    private final Media audioFile = new Media(new File(audioPath).toURI().toString());
-    private final MediaPlayer mediaPlayer = new MediaPlayer(audioFile);
+    private FileChooser fileChooser = new FileChooser();
+    //private File chosenFile;
+    private Media audioFile = null;
+    private MediaPlayer mediaPlayer = null;
 
+    @FXML
+    private Button newSongButton;
     @FXML
     private ImageView albumCover;
     @FXML
@@ -38,7 +42,7 @@ public class Controller {
 
     public void initialize() {
         setPlayButton();
-        playButton.setBackground(null);
+        setNewSongButton();
         setFonts();
     }
 
@@ -63,10 +67,27 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void onNewSongButton() {
+        File chosenFile = fileChooser.showOpenDialog(newSongButton.getScene().getWindow());
+        audioFile = new Media(chosenFile.toURI().toString());
+        mediaPlayer = new MediaPlayer(audioFile);
+        System.out.println(chosenFile.getAbsoluteFile());
+        System.out.println(audioFile.getMetadata().toString());
+    }
+
     public void setPlayButton() {
         Image img = new Image(getClass().getResourceAsStream("playbutton.png"));
         ImageView imgView = new ImageView(img);
         playButton.setGraphic(imgView);
+        playButton.setBackground(null);
+    }
+
+    public void setNewSongButton() {
+        Image img = new Image(getClass().getResourceAsStream("plus.png"));
+        ImageView imgView = new ImageView(img);
+        newSongButton.setGraphic(imgView);
+        newSongButton.setBackground(null);
     }
 
     public void setPauseButton() {
@@ -76,8 +97,8 @@ public class Controller {
     }
 
     public void setFonts() {
-        title.setFont(Font.font("Helvetica Neue", FontWeight.BOLD, 34));
-        artist.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,22));
+        title.setFont(Font.font("Helvetica Neue", FontWeight.BOLD, 26));
+        artist.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,18));
         time.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,12)); // Font da rivedere
         currentTime.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,12));
     }
@@ -116,13 +137,11 @@ public class Controller {
     }
 
     public void setAlbumCover() {
-        Image img = new Image(getClass().getResourceAsStream("test-album-cover.jpg"));
-        albumCover.setImage(img);
-    }
-
-    public void resetTexts() {
-        title.setText("");
-        artist.setText("");
+        if (audioFile.getMetadata().get("image") == null) {
+            albumCover.setImage(new Image(getClass().getResourceAsStream("no-album.png")));
+        } else {
+            albumCover.setImage((Image) audioFile.getMetadata().get("image"));
+        }
     }
 
     public void enableLabels() {

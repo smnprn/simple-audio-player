@@ -10,6 +10,8 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
+    <Button fx:id="newSongButton" onAction="#onNewSongButton"/>
+
    <ImageView fx:id="albumCover" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
 
     <Label fx:id="title" textFill="WHITE" />

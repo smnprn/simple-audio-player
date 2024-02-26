@@ -11,6 +11,11 @@
     -fx-padding: 0.20em;
 }
 
+#newSongButton {
+    -fx-translate-y: -55px;
+    -fx-translate-x: -200px;
+}
+
 #albumCover {
     -fx-translate-y: -20px;
 }
