@@ -3,11 +3,13 @@ package com.smnprn.simpleaudioplayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.io.File;
 
@@ -27,6 +29,8 @@ public class Controller {
     private Label currentTime;
     @FXML
     private Button playButton;
+    @FXML
+    private ProgressBar progressBar;
 
     private boolean playing = false;
 
@@ -39,6 +43,7 @@ public class Controller {
     @FXML
     protected void onPlayButtonClick() {
         setCurrentTime();
+        setProgressBar();
         if (playing) {
             playing = false;
             setPlayButton();
@@ -68,10 +73,10 @@ public class Controller {
     }
 
     public void setFonts() {
-        title.setFont(new Font("VCR OSD Mono",36));
-        artist.setFont(new Font("VCR OSD Mono", 22));
-        time.setFont(new Font("VCR OSD Mono", 12)); // Font da rivedere
-        currentTime.setFont(new Font("VCR OSD Mono", 12));
+        title.setFont(Font.font("Helvetica Neue", FontWeight.BOLD, 34));
+        artist.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,22));
+        time.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,13)); // Font da rivedere
+        currentTime.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,13));
     }
 
     public void setTime() {
@@ -89,6 +94,13 @@ public class Controller {
             } else {
                 currentTime.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds() + " / ");
             }
+        });
+    }
+
+    public void setProgressBar() {
+        mediaPlayer.currentTimeProperty().addListener(ov -> {
+            double currentProgress = mediaPlayer.getCurrentTime().toSeconds() / mediaPlayer.getTotalDuration().toSeconds();
+            progressBar.setProgress(currentProgress);
         });
     }
 

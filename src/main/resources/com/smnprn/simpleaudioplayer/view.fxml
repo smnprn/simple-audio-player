@@ -10,11 +10,14 @@
     </padding>
 
     <Label fx:id="title" textFill="WHITE" />
-    <Label fx:id="artist" textFill="WHITE" />
-   <ProgressBar prefWidth="200.0" progress="0.5" />
-    <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
-        <Label fx:id="currentTime" textFill="WHITE" />
-        <Label fx:id="time" textFill="WHITE" />
-    </HBox>
-    <Button fx:id="playButton" onAction="#onPlayButtonClick" />
+    <Label fx:id="artist" textFill="#bdbdbd" />
+
+    <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: black;">
+        <ProgressBar fx:id="progressBar" prefWidth="400.0" />
+        <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+            <Label fx:id="currentTime" textFill="WHITE" />
+            <Label fx:id="time" textFill="WHITE" />
+        </HBox>
+        <Button fx:id="playButton" onAction="#onPlayButtonClick" />
+    </VBox>
 </VBox>
