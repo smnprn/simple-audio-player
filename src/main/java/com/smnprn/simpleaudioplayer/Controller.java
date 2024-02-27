@@ -88,12 +88,12 @@ public class Controller {
     }
 
     public void setWindowButtons() {
-        Image img = new Image(getClass().getResourceAsStream("img/close.png"));
+        Image img = new Image(getClass().getResourceAsStream("img/close-window.png"));
         ImageView imgView = new ImageView(img);
         closeButton.setGraphic(imgView);
         closeButton.setBackground(null);
 
-        img = new Image(getClass().getResourceAsStream("img/minimize.png"));
+        img = new Image(getClass().getResourceAsStream("img/window-minimize.png"));
         imgView = new ImageView(img);
         minimizeButton.setGraphic(imgView);
         minimizeButton.setBackground(null);

@@ -11,6 +11,16 @@
     -fx-padding: 0.20em;
 }
 
+#closeButton {
+    -fx-translate-y: -7px;
+    -fx-translate-x: 510px;
+}
+
+#minimizeButton {
+    -fx-translate-y: -6px;
+    -fx-translate-x: 510px;
+}
+
 #topLine {
     -fx-translate-y: -150px;
 }
