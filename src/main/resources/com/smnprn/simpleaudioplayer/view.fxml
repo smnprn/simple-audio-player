@@ -16,8 +16,8 @@
                <Image url="@img/saplogo.png" />
            </image>
         </ImageView>
-        <Button fx:id="minimizeButton" onAction="#onMinimizeButtonCLick" />
-        <Button fx:id="closeButton" alignment="BASELINE_RIGHT" onAction="#onCloseButtonClick" />
+        <Button fx:id="minimizeButton" onAction="#onMinimizeButtonCLick"/>
+        <Button fx:id="closeButton" onAction="#onCloseButtonClick"/>
     </HBox>
 
     <Button fx:id="newSongButton" onAction="#onNewSongButton" />
