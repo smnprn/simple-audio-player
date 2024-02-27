@@ -8,16 +8,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 
 public class Controller {
 
-    private FileChooser fileChooser = new FileChooser();
-    //private File chosenFile;
+    private final FileChooser fileChooser = new FileChooser();
     private Media audioFile = null;
     private MediaPlayer mediaPlayer = null;
 
@@ -51,29 +48,23 @@ public class Controller {
         setAlbumCover();
         setCurrentTime();
         setProgressBar();
+
         if (playing) {
-            playing = false;
-            setPlayButton();
-            disableLabels();
-            mediaPlayer.pause();
+            stopPlaying();
         } else {
-            playing = true;
-            setPauseButton();
-            enableLabels();
-            setTitle(audioFile.getMetadata().get("title").toString());
-            setArtist(audioFile.getMetadata().get("artist").toString());
-            setTime();
-            mediaPlayer.play();
+            startPlaying();
         }
     }
 
     @FXML
     public void onNewSongButton() {
-        File chosenFile = fileChooser.showOpenDialog(newSongButton.getScene().getWindow());
-        audioFile = new Media(chosenFile.toURI().toString());
+        if (playing) {
+            stopPlaying();
+        }
+
+        File chosenAudioFile = fileChooser.showOpenDialog(newSongButton.getScene().getWindow());
+        audioFile = new Media(chosenAudioFile.toURI().toString());
         mediaPlayer = new MediaPlayer(audioFile);
-        System.out.println(chosenFile.getAbsoluteFile());
-        System.out.println(audioFile.getMetadata().toString());
     }
 
     public void setPlayButton() {
@@ -97,16 +88,20 @@ public class Controller {
     }
 
     public void setFonts() {
-        title.setFont(Font.font("Helvetica Neue", FontWeight.BOLD, 26));
-        artist.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,18));
-        time.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,12)); // Font da rivedere
-        currentTime.setFont(Font.font("Helvetica Neue", FontWeight.NORMAL,12));
+        title.setFont(Fonts.TITLE);
+        artist.setFont(Fonts.ARTIST);
+        time.setFont(Fonts.TIME);
+        currentTime.setFont(Fonts.TIME);
     }
 
     public void setTime() {
-        // Da rivedere quando verrà implementata la scelta della canzone
         TimeFormatter timeFormatter = new TimeFormatter(audioFile.getDuration());
-        time.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds());
+
+        if (timeFormatter.calcSeconds() < 10) {
+            time.setText(timeFormatter.calcMinutes() + ":" + "0" + timeFormatter.calcSeconds());
+        } else {
+            time.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds());
+        }
     }
 
     public void setCurrentTime() {
@@ -128,14 +123,6 @@ public class Controller {
         });
     }
 
-    public void setTitle(String text) {
-        title.setText(text);
-    }
-
-    public void setArtist(String text) {
-        artist.setText(text);
-    }
-
     public void setAlbumCover() {
         if (audioFile.getMetadata().get("image") == null) {
             albumCover.setImage(new Image(getClass().getResourceAsStream("no-album.png")));
@@ -152,5 +139,22 @@ public class Controller {
     public void disableLabels() {
         title.setDisable(true);
         artist.setDisable(true);
+    }
+
+    public void startPlaying() {
+        playing = true;
+        setPauseButton();
+        enableLabels();
+        title.setText(audioFile.getMetadata().get("title").toString());
+        artist.setText(audioFile.getMetadata().get("artist").toString());
+        setTime();
+        mediaPlayer.play();
+    }
+
+    public void stopPlaying() {
+        playing = false;
+        setPlayButton();
+        disableLabels();
+        mediaPlayer.pause();
     }
 }

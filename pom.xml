@@ -26,6 +26,12 @@
             <version>20</version>
         </dependency>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>15</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
             <version>11.1.2</version>
