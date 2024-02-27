@@ -95,7 +95,7 @@ If you wish, feel free to write me a message on GitHub!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[preview-image]: /home/smnprn/IdeaProjects/simple-audio-player/src/main/resources/com/smnprn/simpleaudioplayer/img/preview.png
+[preview-image]: src/main/resources/com/smnprn/simpleaudioplayer/img/preview.png
 [java-logo]: https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=coffeescript&logoColor=white
 [java-url]: www.java.com
 [javafx-logo]: https://img.shields.io/badge/JavaFX-26A5E4?style=for-the-badge&logo=coffeescript&logoColor=white
