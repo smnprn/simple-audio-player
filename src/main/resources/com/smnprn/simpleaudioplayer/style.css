@@ -11,6 +11,10 @@
     -fx-padding: 0.20em;
 }
 
+#topLine {
+    -fx-translate-y: -150px;
+}
+
 #newSongButton {
     -fx-translate-y: -55px;
     -fx-translate-x: -200px;

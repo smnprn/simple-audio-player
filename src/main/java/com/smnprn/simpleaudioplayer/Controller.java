@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 
@@ -20,6 +21,10 @@ public class Controller {
     private Media audioFile = null;
     private MediaPlayer mediaPlayer = null;
 
+    @FXML
+    private Button closeButton;
+    @FXML
+    private Button minimizeButton;
     @FXML
     private Button newSongButton;
     @FXML
@@ -40,6 +45,7 @@ public class Controller {
     private boolean playing = false;
 
     public void initialize() {
+        setWindowButtons();
         setPlayButton();
         setNewSongButton();
         setFonts();
@@ -67,6 +73,30 @@ public class Controller {
         File chosenAudioFile = fileChooser.showOpenDialog(newSongButton.getScene().getWindow());
         audioFile = new Media(chosenAudioFile.toURI().toString());
         mediaPlayer = new MediaPlayer(audioFile);
+    }
+
+    @FXML
+    public void onMinimizeButtonCLick() {
+        Stage stage = (Stage) minimizeButton.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void onCloseButtonClick() {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
+
+    public void setWindowButtons() {
+        Image img = new Image(getClass().getResourceAsStream("img/close.png"));
+        ImageView imgView = new ImageView(img);
+        closeButton.setGraphic(imgView);
+        closeButton.setBackground(null);
+
+        img = new Image(getClass().getResourceAsStream("img/minimize.png"));
+        imgView = new ImageView(img);
+        minimizeButton.setGraphic(imgView);
+        minimizeButton.setBackground(null);
     }
 
     public void setPlayButton() {
