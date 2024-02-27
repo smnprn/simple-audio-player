@@ -9,4 +9,6 @@ module com.smnprn.simpleaudioplayer {
 
     opens com.smnprn.simpleaudioplayer to javafx.fxml;
     exports com.smnprn.simpleaudioplayer;
+    exports com.smnprn.simpleaudioplayer.utils;
+    opens com.smnprn.simpleaudioplayer.utils to javafx.fxml;
 }

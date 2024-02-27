@@ -1,4 +1,4 @@
-package com.smnprn.simpleaudioplayer;
+package com.smnprn.simpleaudioplayer.utils;
 
 import javafx.util.Duration;
 

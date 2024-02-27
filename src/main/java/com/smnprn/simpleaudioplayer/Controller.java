@@ -1,5 +1,7 @@
 package com.smnprn.simpleaudioplayer;
 
+import com.smnprn.simpleaudioplayer.utils.Fonts;
+import com.smnprn.simpleaudioplayer.utils.TimeFormatter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
