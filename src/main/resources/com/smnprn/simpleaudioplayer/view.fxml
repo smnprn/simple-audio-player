@@ -16,7 +16,7 @@
                <Image url="@img/saplogo.png" />
            </image>
         </ImageView>
-        <Button fx:id="minimizeButton" onAction="#onMinimizeButtonCLick"/>
+        <Button fx:id="minimizeButton" onAction="#onMinimizeButtonClick"/>
         <Button fx:id="closeButton" onAction="#onCloseButtonClick"/>
     </HBox>
 

@@ -12,6 +12,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -21,6 +22,8 @@ public class Controller {
     private Media audioFile = null;
     private MediaPlayer mediaPlayer = null;
 
+    @FXML
+    private Button playButton;
     @FXML
     private Button closeButton;
     @FXML
@@ -38,23 +41,24 @@ public class Controller {
     @FXML
     private Label currentTime;
     @FXML
-    private Button playButton;
-    @FXML
     private ProgressBar progressBar;
 
     private boolean playing = false;
 
     public void initialize() {
-        setWindowButtons();
-        setPlayButton();
-        setNewSongButton();
+        setButtonIcon(closeButton, "img/close-window.png");
+        setButtonIcon(minimizeButton, "img/window-minimize.png");
+        setButtonIcon(playButton, "playbutton.png");
+        setButtonIcon(newSongButton, "plus.png");
         setFonts();
     }
 
     @FXML
     protected void onPlayButtonClick() {
+        title.setText(audioFile.getMetadata().get("title").toString());
+        artist.setText(audioFile.getMetadata().get("artist").toString());
         setAlbumCover();
-        setCurrentTime();
+        setSongTimes();
         setProgressBar();
 
         if (playing) {
@@ -76,7 +80,7 @@ public class Controller {
     }
 
     @FXML
-    public void onMinimizeButtonCLick() {
+    public void onMinimizeButtonClick() {
         Stage stage = (Stage) minimizeButton.getScene().getWindow();
         stage.setIconified(true);
     }
@@ -87,36 +91,11 @@ public class Controller {
         stage.close();
     }
 
-    public void setWindowButtons() {
-        Image img = new Image(getClass().getResourceAsStream("img/close-window.png"));
+    public void setButtonIcon(Button button, String iconPath) {
+        Image img = new Image(getClass().getResourceAsStream(iconPath));
         ImageView imgView = new ImageView(img);
-        closeButton.setGraphic(imgView);
-        closeButton.setBackground(null);
-
-        img = new Image(getClass().getResourceAsStream("img/window-minimize.png"));
-        imgView = new ImageView(img);
-        minimizeButton.setGraphic(imgView);
-        minimizeButton.setBackground(null);
-    }
-
-    public void setPlayButton() {
-        Image img = new Image(getClass().getResourceAsStream("playbutton.png"));
-        ImageView imgView = new ImageView(img);
-        playButton.setGraphic(imgView);
-        playButton.setBackground(null);
-    }
-
-    public void setNewSongButton() {
-        Image img = new Image(getClass().getResourceAsStream("plus.png"));
-        ImageView imgView = new ImageView(img);
-        newSongButton.setGraphic(imgView);
-        newSongButton.setBackground(null);
-    }
-
-    public void setPauseButton() {
-        Image img = new Image(getClass().getResourceAsStream("pausebutton.png"));
-        ImageView imgView = new ImageView(img);
-        playButton.setGraphic(imgView);
+        button.setGraphic(imgView);
+        button.setBackground(null);
     }
 
     public void setFonts() {
@@ -126,26 +105,22 @@ public class Controller {
         currentTime.setFont(Fonts.TIME);
     }
 
-    public void setTime() {
-        TimeFormatter timeFormatter = new TimeFormatter(audioFile.getDuration());
+    public void setSongTimes() {
+        formatTime(audioFile.getDuration(), time);
+
+        mediaPlayer.currentTimeProperty().addListener(ov -> {
+            formatTime(mediaPlayer.getCurrentTime(), currentTime);
+        });
+    }
+
+    public void formatTime(Duration songDuration, Label time) {
+        TimeFormatter timeFormatter = new TimeFormatter(songDuration);
 
         if (timeFormatter.calcSeconds() < 10) {
             time.setText(timeFormatter.calcMinutes() + ":" + "0" + timeFormatter.calcSeconds());
         } else {
             time.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds());
         }
-    }
-
-    public void setCurrentTime() {
-        mediaPlayer.currentTimeProperty().addListener(ov -> {
-            TimeFormatter timeFormatter = new TimeFormatter(mediaPlayer.getCurrentTime());
-
-            if (timeFormatter.calcSeconds() < 10) {
-                currentTime.setText(timeFormatter.calcMinutes() + ":" + "0" + timeFormatter.calcSeconds());
-            } else {
-                currentTime.setText(timeFormatter.calcMinutes() + ":" + timeFormatter.calcSeconds());
-            }
-        });
     }
 
     public void setProgressBar() {
@@ -163,30 +138,22 @@ public class Controller {
         }
     }
 
-    public void enableLabels() {
-        title.setDisable(false);
-        artist.setDisable(false);
-    }
-
-    public void disableLabels() {
-        title.setDisable(true);
-        artist.setDisable(true);
+    public void disableLabels(boolean disable) {
+        title.setDisable(disable);
+        artist.setDisable(disable);
     }
 
     public void startPlaying() {
         playing = true;
-        setPauseButton();
-        enableLabels();
-        title.setText(audioFile.getMetadata().get("title").toString());
-        artist.setText(audioFile.getMetadata().get("artist").toString());
-        setTime();
+        setButtonIcon(playButton, "pausebutton.png");
+        disableLabels(false);
         mediaPlayer.play();
     }
 
     public void stopPlaying() {
         playing = false;
-        setPlayButton();
-        disableLabels();
+        setButtonIcon(playButton, "playbutton.png");
+        disableLabels(true);
         mediaPlayer.pause();
     }
 }
