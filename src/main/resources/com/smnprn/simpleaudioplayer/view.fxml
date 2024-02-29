@@ -24,15 +24,15 @@
 
    <ImageView fx:id="albumCover" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
 
-    <Label fx:id="title" textFill="WHITE" />
-    <Label fx:id="artist" textFill="#bdbdbd" />
+    <Label fx:id="titleLabel" textFill="WHITE" />
+    <Label fx:id="artistLabel" textFill="#bdbdbd" />
 
     <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: black;">
         <ProgressBar fx:id="progressBar" prefWidth="400.0" />
         <HBox fx:id="timeBox" alignment="CENTER" prefHeight="30.0" prefWidth="400.0">
-            <Label fx:id="currentTime" textFill="#bdbdbd" />
+            <Label fx:id="currentTimeLabel" textFill="#bdbdbd" />
             <Separator opacity="0.0" prefWidth="353" />
-            <Label fx:id="time" textFill="#bdbdbd" />
+            <Label fx:id="totalTimeLabel" textFill="#bdbdbd" />
         </HBox>
         <Button fx:id="playButton" onAction="#onPlayButtonClick" />
     </VBox>
