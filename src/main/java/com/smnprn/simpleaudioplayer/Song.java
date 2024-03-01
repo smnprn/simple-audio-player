@@ -1,5 +1,6 @@
 package com.smnprn.simpleaudioplayer;
 
+import com.smnprn.simpleaudioplayer.utils.Time;
 import com.smnprn.simpleaudioplayer.utils.TimeFormatter;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -13,7 +14,6 @@ public class Song {
     private Image covertArt;
     private TimeFormatter totalDurationTimeFormatter;
     private TimeFormatter currentDurationTimeFormatter;
-    private Time kindOfTime;
 
     public Song(String title, String artist, Image covertArt, Duration totalDuration) {
         this.title = title;
@@ -31,16 +31,13 @@ public class Song {
         return artist;
     }
 
-    public Duration getTotalDuration() {
-        return totalDuration;
-    }
-
     public Image getCovertArt() {
         return covertArt;
     }
 
-    public int getSeconds() {
-        return totalDurationTimeFormatter.calcSeconds();
+    public int getSeconds(Time kindOfTime) {
+        return (kindOfTime.equals(Time.TOTAL)) ? totalDurationTimeFormatter.calcSeconds()
+                                               : currentDurationTimeFormatter.calcSeconds();
     }
 
     public void setCurrentDuration(Duration currentDuration) {

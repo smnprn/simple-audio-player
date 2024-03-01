@@ -1,6 +1,7 @@
 package com.smnprn.simpleaudioplayer;
 
 import com.smnprn.simpleaudioplayer.utils.Fonts;
+import com.smnprn.simpleaudioplayer.utils.Time;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +21,7 @@ public class Controller {
     private Media audioFile = null;
     private MediaPlayer mediaPlayer = null;
     private Song song;
+    private boolean playing = false;
 
     @FXML
     private Button playButton;
@@ -41,8 +43,6 @@ public class Controller {
     private Label currentTimeLabel;
     @FXML
     private ProgressBar progressBar;
-
-    private boolean playing = false;
 
     public void initialize() {
         setButtonIcon(closeButton, "img/close-window.png");
@@ -122,7 +122,7 @@ public class Controller {
     private void formatTime(Label timeLabel, Time kindOfTime) {
         song.setCurrentDuration(mediaPlayer.getCurrentTime());
 
-        if (song.getSeconds() < 10) {
+        if (song.getSeconds(kindOfTime) < 10) {
             timeLabel.setText(song.durationLowSeconds(kindOfTime));
         } else {
             timeLabel.setText(song.durationHighSeconds(kindOfTime));
