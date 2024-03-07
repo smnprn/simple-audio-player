@@ -1,11 +1,9 @@
 package com.smnprn.simpleaudioplayer;
 
+import com.smnprn.simpleaudioplayer.log.LogSetter;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -47,6 +45,9 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        LogSetter logSetter = new LogSetter();
+        logSetter.configureLog();
+
         launch();
     }
 }

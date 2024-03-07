@@ -11,13 +11,17 @@
     -fx-padding: 0.20em;
 }
 
+#saplogo {
+    -fx-translate-y: 72px;
+}
+
 #closeButton {
-    -fx-translate-y: -7px;
+    -fx-translate-y: 65px;
     -fx-translate-x: 510px;
 }
 
 #minimizeButton {
-    -fx-translate-y: -6px;
+    -fx-translate-y: 66px;
     -fx-translate-x: 510px;
 }
 

@@ -12,11 +12,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.util.Objects;
 
 public class Controller {
-
+    private final Logger logger = Logger.getLogger(Controller.class);
     private final FileChooser fileChooser = new FileChooser();
     private Media audioFile = null;
     private MediaPlayer mediaPlayer = null;
@@ -86,7 +88,7 @@ public class Controller {
                 startPlaying();
             }
         } catch (NullPointerException e) {
-            System.out.println("No song selected");
+            logger.info("Play button clicked without choosing an audio file first");
         }
     }
 
@@ -103,7 +105,14 @@ public class Controller {
     }
 
     private void setButtonIcon(Button button, String iconPath) {
-        Image img = new Image(getClass().getResourceAsStream(iconPath));
+        Image img = null;
+
+        try {
+            img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
+        } catch (NullPointerException e) {
+            logger.warn("Icon not found or invalid in icon path for the button " + button.getId());
+        }
+
         ImageView imgView = new ImageView(img);
         button.setGraphic(imgView);
         button.setBackground(null);
@@ -142,7 +151,13 @@ public class Controller {
     }
 
     private void setAlbumCover(Image coverArt) {
-        Image unknownCover = new Image(getClass().getResourceAsStream("img/no-album.png"));
+        Image unknownCover = null;
+
+        try {
+            unknownCover = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/no-album.png")));
+        } catch (NullPointerException e) {
+            logger.warn("Cover art for audio files with an unknown cover not found, check for problems in the img/no-album.png file");
+        }
 
         if (coverArt == null) {
             albumCover.setImage(unknownCover);

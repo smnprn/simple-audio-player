@@ -6,6 +6,7 @@ module com.smnprn.simpleaudioplayer {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires javafx.media;
+    requires reload4j;
 
     opens com.smnprn.simpleaudioplayer to javafx.fxml;
     exports com.smnprn.simpleaudioplayer;

@@ -11,7 +11,7 @@
     </padding>
 
     <HBox fx:id="topLine">
-        <ImageView fitHeight="18.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+        <ImageView fx:id="saplogo" fitHeight="18.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
            <image>
                <Image url="@img/saplogo.png" />
            </image>
@@ -22,7 +22,7 @@
 
     <Button fx:id="newSongButton" onAction="#onNewSongButton" />
 
-   <ImageView fx:id="albumCover" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="albumCover" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
 
     <Label fx:id="titleLabel" textFill="WHITE" />
     <Label fx:id="artistLabel" textFill="#bdbdbd" />
