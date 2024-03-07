@@ -50,6 +50,7 @@ public class Controller {
         setButtonIcon(playButton, "playbutton.png");
         setButtonIcon(newSongButton, "plus.png");
         setFonts();
+        setAlbumCover(null);
     }
 
     @FXML
@@ -65,23 +66,27 @@ public class Controller {
 
     @FXML
     protected void onPlayButtonClick() {
-        song = new Song(
-                audioFile.getMetadata().get("title").toString(),
-                audioFile.getMetadata().get("artist").toString(),
-                (Image) audioFile.getMetadata().get("image"),
-                audioFile.getDuration()
-        );
+        try {
+            song = new Song(
+                    audioFile.getMetadata().get("title").toString(),
+                    audioFile.getMetadata().get("artist").toString(),
+                    (Image) audioFile.getMetadata().get("image"),
+                    audioFile.getDuration()
+            );
 
-        titleLabel.setText(song.getTitle());
-        artistLabel.setText(song.getArtist());
-        setAlbumCover(song.getCovertArt());
-        setTimeLabels();
-        setProgressBar();
+            titleLabel.setText(song.getTitle());
+            artistLabel.setText(song.getArtist());
+            setAlbumCover(song.getCovertArt());
+            setTimeLabels();
+            setProgressBar();
 
-        if (playing) {
-            stopPlaying();
-        } else {
-            startPlaying();
+            if (playing) {
+                stopPlaying();
+            } else {
+                startPlaying();
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No song selected");
         }
     }
 
@@ -137,7 +142,7 @@ public class Controller {
     }
 
     private void setAlbumCover(Image coverArt) {
-        Image unknownCover = new Image(getClass().getResourceAsStream("no-album.png"));
+        Image unknownCover = new Image(getClass().getResourceAsStream("img/no-album.png"));
 
         if (coverArt == null) {
             albumCover.setImage(unknownCover);
