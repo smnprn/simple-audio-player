@@ -68,7 +68,7 @@ public class Controller {
 
     @FXML
     protected void onPlayButtonClick() {
-        try {
+        if (audioFile != null) {
             song = new Song(
                     audioFile.getMetadata().get("title").toString(),
                     audioFile.getMetadata().get("artist").toString(),
@@ -87,7 +87,7 @@ public class Controller {
             } else {
                 startPlaying();
             }
-        } catch (NullPointerException e) {
+        } else {
             logger.info("Play button clicked without choosing an audio file first");
         }
     }
@@ -105,15 +105,10 @@ public class Controller {
     }
 
     private void setButtonIcon(Button button, String iconPath) {
-        Image img = null;
-
-        try {
-            img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
-        } catch (NullPointerException e) {
-            logger.warn("Icon not found or invalid in icon path for the button " + button.getId());
-        }
+        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
 
         ImageView imgView = new ImageView(img);
+
         button.setGraphic(imgView);
         button.setBackground(null);
     }
@@ -151,13 +146,7 @@ public class Controller {
     }
 
     private void setAlbumCover(Image coverArt) {
-        Image unknownCover = null;
-
-        try {
-            unknownCover = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/no-album.png")));
-        } catch (NullPointerException e) {
-            logger.warn("Cover art for audio files with an unknown cover not found, check for problems in the img/no-album.png file");
-        }
+        Image unknownCover = new Image(Objects.requireNonNull(getClass().getResourceAsStream("img/no-album.png")));
 
         if (coverArt == null) {
             albumCover.setImage(unknownCover);
